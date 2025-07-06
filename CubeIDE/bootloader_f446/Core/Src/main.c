@@ -105,7 +105,10 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+    /* UART2 Message */
     HAL_UART_Transmit(&huart2,(uint8_t*)bldata,sizeof(bldata),HAL_MAX_DELAY);
+    /* Debug Message */
+    HAL_UART_Transmit(&huart3,(uint8_t*)bldata,sizeof(bldata),HAL_MAX_DELAY);
     uint32_t current_tick = HAL_GetTick();
     while(HAL_GetTick() <= (current_tick+500)); //500 ticks between transmit
 
