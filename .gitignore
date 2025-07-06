@@ -6,3 +6,6 @@
 *.ini
 *.history
 *.index
+*.snap
+*.markers.snap 
+.metadata/*
