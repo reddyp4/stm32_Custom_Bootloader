@@ -61,7 +61,7 @@ static void MX_CRC_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+char bldata[] = "Hello from Custom Bootloader\r\n";
 /* USER CODE END 0 */
 
 /**
@@ -105,6 +105,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+    HAL_UART_Transmit(&huart2,(uint8_t*)bldata,sizeof(bldata),HAL_MAX_DELAY);
+    uint32_t current_tick = HAL_GetTick();
+    while(HAL_GetTick() <= (current_tick+500)); //500 ticks between transmit
 
     /* USER CODE BEGIN 3 */
   }

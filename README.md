@@ -9,3 +9,6 @@ Custom Bootloader for STM32
 
 # IDE
 - CubeIDE (macOS)
+
+# Serial Tool
+- SerialTools (macOS)
