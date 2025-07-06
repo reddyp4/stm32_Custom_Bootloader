@@ -17,10 +17,14 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include <stdarg.h>
+#include <string.h>
+#include <stdint.h>
+//#include <stdio.h>	//Needed?
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "main.h"
 
 /* USER CODE END Includes */
 
@@ -36,6 +40,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+#define BL_DEBUG_MSG_EN
 
 /* USER CODE END PM */
 
@@ -44,6 +49,9 @@ CRC_HandleTypeDef hcrc;
 
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
+
+#define D_UART  &huart3
+#define C_UART  &huart2
 
 /* USER CODE BEGIN PV */
 
@@ -56,7 +64,7 @@ static void MX_USART2_UART_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_CRC_Init(void);
 /* USER CODE BEGIN PFP */
-
+static void printmsg(char *format,...);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -106,16 +114,33 @@ int main(void)
   {
     /* USER CODE END WHILE */
     /* UART2 Message */
-    HAL_UART_Transmit(&huart2,(uint8_t*)bldata,sizeof(bldata),HAL_MAX_DELAY);
-    /* Debug Message */
-    HAL_UART_Transmit(&huart3,(uint8_t*)bldata,sizeof(bldata),HAL_MAX_DELAY);
+    printmsg(bldata);
     uint32_t current_tick = HAL_GetTick();
+    printmsg("Current tick:%d\n",current_tick);
+    /* Debug Message */
+    printmsg(bldata);
     while(HAL_GetTick() <= (current_tick+500)); //500 ticks between transmit
 
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
+
+/* Adding a print message handler for easier calls */
+void printmsg(char *format,...)
+{
+#ifdef BL_DEBUG_MSG_EN
+	char str[80];
+
+	/*Extract the the argument list using VA apis */
+	va_list args;
+	va_start(args, format);
+	vsprintf(str, format,args);
+	HAL_UART_Transmit(D_UART,(uint8_t *)str, strlen(str),HAL_MAX_DELAY);
+	va_end(args);
+#endif
+}
+
 
 /**
   * @brief System Clock Configuration
