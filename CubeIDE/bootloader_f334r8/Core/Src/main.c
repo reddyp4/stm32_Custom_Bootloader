@@ -102,6 +102,19 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
+  printmsg("Bootloader Init:\n");
+  if(HAL_GPIO_ReadPin(B1_GPIO_Port,B1_Pin) == GPIO_PIN_RESET)
+  {
+    printmsg("BL_DEBUG_MSG:Button is pressed ... going to BL Mode\n\r");
+    /* Process the UART information */
+    bootloader_uart_read_data();
+  }
+  else
+  {
+    printmsg("BL_DEBUG_MSG:Button is not pressed ... executing user app\n");
+    /* Continue to user code */
+    bootloader_jump_to_user_app();
+  }
 
   /* USER CODE END 2 */
 
@@ -119,6 +132,12 @@ int main(void)
   /* USER CODE END 3 */
 }
 
+void bootloader_uart_read_data()
+{
+}
+
+void bootloader_jump_to_user_app()
+{}
 /* prints formatted string to console over UART */
  void printmsg(char *format,...)
  {
@@ -283,9 +302,17 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
+  
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
+/* B1_PIN: Button press for bootloader */
+GPIO_InitTypeDef GPIO_B1_InitStruct;
+GPIO_B1_InitStruct.Pin = B1_Pin;
+GPIO_B1_InitStruct.Mode = GPIO_MODE_IT_FALLING;  //Capture GPIO off
+GPIO_B1_InitStruct.Pull = GPIO_NOPULL; //No Pull-up or Pull-down
+HAL_GPIO_Init(B1_GPIO_Port,&GPIO_B1_InitStruct);
 /* USER CODE END MX_GPIO_Init_2 */
 }
 

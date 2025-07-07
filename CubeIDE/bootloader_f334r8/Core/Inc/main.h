@@ -32,6 +32,9 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#define B1_Pin GPIO_PIN_13
+#define B1_GPIO_Port GPIOC
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -53,6 +56,9 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
+void bootloader_uart_read_data();
+
+void bootloader_jump_to_user_app();
 
 /* USER CODE END EFP */
 
