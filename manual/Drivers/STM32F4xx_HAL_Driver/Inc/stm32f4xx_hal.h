@@ -26,7 +26,12 @@
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_hal_conf.h"
+//#include "stm32f4xx_hal_conf.h"
+
+#include "stm32f4xx_hal_def.h"
+#include "stm32f4xx_hal_cortex.h"
+#include "stm32f4xx_hal_rcc.h"
+#include "stm32f4xx_hal_flash.h"
 
 /** @addtogroup STM32F4xx_HAL_Driver
   * @{

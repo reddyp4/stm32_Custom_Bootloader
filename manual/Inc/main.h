@@ -5,6 +5,8 @@
 extern "C" {
 #endif
 
+#include "stm32f4xx_hal.h"
+
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
