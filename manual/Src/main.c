@@ -17,6 +17,7 @@
  */
 
 #include <stdint.h>
+#include "main.h"
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
@@ -26,4 +27,19 @@ int main(void)
 {
     /* Loop forever */
 	for(;;);
+}
+
+/**
+ * @brief Error Handler
+ * This function is executed in case of error occurrence.
+ * @retval None
+ */
+void error_handler(void)
+{
+    /* User can add his own implementation to report the HAL error return state */
+    __disable_irq();
+    while (1)
+    {
+        /* Stay in this loop in case of error */
+    }
 }
