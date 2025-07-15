@@ -60,8 +60,8 @@ all: main-build
 main-build: bootloader_f429zi.elf secondary-outputs
 
 # Tool invocations
-bootloader_f429zi.elf bootloader_f429zi.map: $(OBJS) $(USER_OBJS) /Users/bhageerath/Documents/Firmware/stm32_Custom_Bootloader/bootloader_f429zi/STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "bootloader_f429zi.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/bhageerath/Documents/Firmware/stm32_Custom_Bootloader/bootloader_f429zi/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="bootloader_f429zi.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+bootloader_f429zi.elf bootloader_f429zi.map: $(OBJS) $(USER_OBJS) /home/madison/Documents/Firmware/stm32_Custom_Bootloader/bootloader_f429zi/STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "bootloader_f429zi.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/madison/Documents/Firmware/stm32_Custom_Bootloader/bootloader_f429zi/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="bootloader_f429zi.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
