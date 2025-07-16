@@ -16,11 +16,13 @@
  ******************************************************************************
  */
 
-#include <stdint.h>
 #include "main.h"
 
 int main(void)
 {
+    /* Initialize the HAL Library; it must be the first function to be executed
+       before the call of any HAL function */
+    HAL_Init();
     /* Loop forever */
 	while(1)
     {
